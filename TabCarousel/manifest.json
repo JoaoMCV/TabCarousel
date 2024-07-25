@@ -1,0 +1,16 @@
+{
+    "manifest_version": 3,
+    "name": "Tab Carousel",
+    "version": "1.0",
+    "description": "Extensão para ciclar entre abas abertas a cada 5 segundos.",
+    "permissions": [
+      "tabs"
+    ],
+    "background": {
+      "service_worker": "script.js"
+    },
+    "action": {
+      "default_popup": "popup.html"
+    }
+  }
+  
