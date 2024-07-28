@@ -1,14 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tab Carousel</title>
+    <title>TabCarousel</title>
     <link rel="stylesheet" href="popup-style.css">
 </head>
 <body>
-    <h1>Tab Cycler</h1>
-    <button id="toggle">Toggle Cycling</button>
+    <button class="toggle" id="startstop">Start/Stop</button>
+    <br><br>
+    <div class="speedselector" id="speedselector">
+        <button id="devagar">Devagar</button>
+        <button id="padrao">Padrão</button>
+        <button id="rapido">Rápido</button>
+        <br><br>
+        <label for="custom">Intervalo:</label>
+        <input type="number" id="custom" placeholder="Segundos">
+        <button id="customset">Set</button>
+    </div>
+    <br>
+    <div>
+        <a href="options.html">Opções avançadas</a>
+    </div>
     <script src="popup-script.js"></script>
 </body>
 </html>

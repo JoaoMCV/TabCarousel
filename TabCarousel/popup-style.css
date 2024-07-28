@@ -1,11 +1,13 @@
-body {
-    width: 200px;
-    font-family: Arial, sans-serif;
+body{
+    height: 500px;
+    width: 300px;
 }
+.toggle{
+    font-size: 24px;
+    font-family: Calibri;
+    border-radius: 10pt;
+}
+.desligado{
+    background-color: limegreen;
 
-button {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    background-color: azure;
-}   
+}
