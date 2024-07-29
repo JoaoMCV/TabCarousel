@@ -39,7 +39,11 @@ function carossel(){
         teste = chrome.tabs.getCurrent()
         console.log(teste.index)
         index = (index + 1) % tabs.length
-        chrome.tabs.reload(tabs[index].id)
+        if(tabs[index].url == "https://app.powerbi.com/groups/14e1c07d-28c2-4a27-9eff-ae2fcf99de7b/reports/ea788506-3fcf-4210-947c-ac65f330b1ba/ReportSection?experience=power-bi"){
+            }
+            else{
+                chrome.tabs.reload(tabs[index].id)
+            }
         chrome.tabs.update(tabs[index].id, {active: true})
     })
     
@@ -79,8 +83,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
         sendResponse('trocou')
     }
     else if(request.action === 'setVelocidadeCustom'){
-        intervalo = request.message 
-        iniciaPara(intervalo * 1000)
+        intervalo = request.message * 1000
+        iniciaPara(intervalo)
         sendResponse('trocou')
     }
 
