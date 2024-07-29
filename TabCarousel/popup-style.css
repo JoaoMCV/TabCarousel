@@ -13,3 +13,14 @@ body{
 .ligado{
     background-color: red;
 }
+#listaDeGuias{
+    list-style-type: none;
+    align-self:flex-start;
+}
+.itemdaLista{
+    font-size: medium;
+    background-color: gray;
+    border-width: 5px;
+    border-style: solid;
+    border-color: red;
+}

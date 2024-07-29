@@ -1,4 +1,3 @@
-let index = 0
 let estado = false
 let intervalo = 5000
 let intervaloId = null
@@ -35,16 +34,13 @@ function carossel(){
     if(!estado) return
     chrome.tabs.query({}, (tabs)=>{
         if(tabs.length === 0) return
-        console.log(tabs[index].id)
-        teste = chrome.tabs.getCurrent()
-        console.log(teste.index)
-        index = (index + 1) % tabs.length
-        if(tabs[index].url == "https://app.powerbi.com/groups/14e1c07d-28c2-4a27-9eff-ae2fcf99de7b/reports/ea788506-3fcf-4210-947c-ac65f330b1ba/ReportSection?experience=power-bi"){
-            }
-            else{
-                chrome.tabs.reload(tabs[index].id)
-            }
-        chrome.tabs.update(tabs[index].id, {active: true})
+        chrome.tabs.query({active: true}, (tabrs)=>{
+            console.log(tabrs[0].index)
+            index = tabrs[0].index
+            index = (index + 1) % tabs.length
+            chrome.tabs.reload(tab[index].id)
+            chrome.tabs.update(tabs[index].id, {active: true})
+        })
     })
     
 }

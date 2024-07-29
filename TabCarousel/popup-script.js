@@ -5,7 +5,7 @@ speedSelectPadrao = document.getElementById('padrao')
 input = document.getElementById('custom')
 inputSetBtn = document.getElementById('customset')
 extensaobody = document.getElementById('mainbody')
-
+listaDeGuias = document.getElementById('listaDeGuias')
 
 function updateButton(estadoAtual){
     
@@ -21,12 +21,26 @@ function updateButton(estadoAtual){
     }
 }
 
+function iniciaLista(){
+    chrome.tabs.query({}, (tabs)=>{
+        for(let i = 0; i< tabs.length;i++){
+            itemName = tabs[i].title
+            itemObj = document.createElement('li')
+            itemObj.textContent = itemName
+            itemObj.classList.add('itemdaLista')
+            listaDeGuias.appendChild(itemObj)
+        }
+    })
+}
+
 extensaobody.onload = ()=>{
     chrome.runtime.sendMessage({action: 'getEstado'}, (response)=>{
         updateButton(response.estado)
         console.log(response.estado)
     })
+    iniciaLista()
 }
+
 
 inputSetBtn.addEventListener('click', ()=>{
     chrome.runtime.sendMessage({action: 'setVelocidadeCustom', message: input.value}, ()=>{
@@ -52,8 +66,10 @@ speedSelectPadrao.addEventListener('click', ()=>{
         console.log('Intervalo alterado para Padrao (5s)')
     })
 })
+
 speedSelectRapido.addEventListener('click', ()=>{
     chrome.runtime.sendMessage({action: 'setVelocidadeRapida'}, ()=>{
         console.log('Intervalo alterado para Padrao (2s)')
     })
 })
+
