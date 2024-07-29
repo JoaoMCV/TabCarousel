@@ -6,6 +6,7 @@ input = document.getElementById('custom')
 inputSetBtn = document.getElementById('customset')
 extensaobody = document.getElementById('mainbody')
 listaDeGuias = document.getElementById('listaDeGuias')
+visBtns = document.getElementsByClassName('botaogeral')
 
 function updateButton(estadoAtual){
     
@@ -21,17 +22,37 @@ function updateButton(estadoAtual){
     }
 }
 
+function atualizarVisibilidade(element){
+    console.log('teste')
+ }
+
 function iniciaLista(){
     chrome.tabs.query({}, (tabs)=>{
         for(let i = 0; i< tabs.length;i++){
+            
             itemName = tabs[i].title
+            
             itemObj = document.createElement('li')
+            
+            btnObj = document.createElement('BUTTON')
+            
+            btnImg = document.createElement('img')
+            btnImg.classList.add('btnImgVis')
+            
             itemObj.textContent = itemName
-            itemObj.classList.add('itemdaLista')
+            itemObj.appendChild(btnObj)
+            
+            btnObj.classList.add('botaogeral')
+            btnObj.classList.add(`botao${i}`)
+            btnObj.onclick = atualizarVisibilidade(this)
+            
+            itemObj.classList.add('visivel')
+            itemObj.classList.add(`itemdaLista`)
             listaDeGuias.appendChild(itemObj)
         }
     })
 }
+
 
 extensaobody.onload = ()=>{
     chrome.runtime.sendMessage({action: 'getEstado'}, (response)=>{
