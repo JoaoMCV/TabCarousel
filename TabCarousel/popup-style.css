@@ -9,5 +9,7 @@ body{
 }
 .desligado{
     background-color: limegreen;
-
+}
+.ligado{
+    background-color: red;
 }

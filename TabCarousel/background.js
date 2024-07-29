@@ -39,6 +39,7 @@ function carossel(){
         teste = chrome.tabs.getCurrent()
         console.log(teste.index)
         index = (index + 1) % tabs.length
+        chrome.tabs.reload(tabs[index].id)
         chrome.tabs.update(tabs[index].id, {active: true})
     })
     
@@ -79,7 +80,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
     }
     else if(request.action === 'setVelocidadeCustom'){
         intervalo = request.message 
-        iniciaPara(intervalo)
+        iniciaPara(intervalo * 1000)
         sendResponse('trocou')
     }
 
