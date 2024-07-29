@@ -5,7 +5,7 @@ body{
 .toggle{
     font-size: 24px;
     font-family: Calibri;
-    border-radius: 10pt;
+    border-radius: 10px;
 }
 .desligado{
     background-color: limegreen;
