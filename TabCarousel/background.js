@@ -44,7 +44,7 @@ function carossel(){
                 }
             }
             index = (index + 1) % tabs.length
-            //chrome.tabs.reload(tabs[index].id)
+            chrome.tabs.reload(tabs[(index - 1)%tabs.length].id)
             chrome.tabs.update(tabs[index].id, {active: true})
         })
     })

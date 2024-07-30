@@ -4,32 +4,43 @@ body{
 }
 .toggle{
     font-size: 24px;
-    font-family: Calibri;
     border-radius: 10px;
 }
 .desligado{
-    background-color: limegreen;
+    background-color: rgb(136,212,202);
 }
 .ligado{
-    background-color: red;
+    color: white;
+    background-color: rgb(208,44,129);
 }
 #listaDeGuias{
     list-style-type: none;
     align-self:flex-start;
 
 }
+.speedselector button{
+    border-radius: 25px;
+}
 .itemdaLista{
     font-size: medium;
-    background-color: gray;
+    color: rgb(179,205,224);
+    background-color:royalblue;
+    border-radius: 10px;
     border-width: 5px;
     border-style: solid;
-    border-color: red;
+    border-color: royalblue;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 0px;
 }
 .botaogeral{
+    margin-right: 0px;
+    float: right;
     border: none;
     cursor: pointer;
+    background: none;
     appearance: none;
-    background-color: inherit;
+    border-radius: 5px;
 
 }
 .botao0{
