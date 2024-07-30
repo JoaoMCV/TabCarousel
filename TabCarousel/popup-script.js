@@ -22,9 +22,28 @@ function updateButton(estadoAtual){
     }
 }
 
-function atualizarVisibilidade(element){
-    console.log('teste')
- }
+function atualizarVisibilidade(){
+    console.log(this.classList)
+    imagem = this.children.item(0)
+    if(imagem.classList.contains('btnImgVis')){
+        imagem.classList.add('btnImgnotVis')
+        imagem.classList.remove('btnImgVis')
+        chrome.runtime.sendMessage({action: 'remove', message: this.classList[1]}, ()=>{
+            console.log(this.classList[1])
+        })
+    }
+    else{
+        imagem.classList.add('btnImgVis')
+        imagem.classList.remove('btnImgnotVis')
+        chrome.runtime.sendMessage({action: 'restore', message: this.classList[1]}, ()=>{
+            console.log(this.classList[1])
+        })
+    }
+
+
+    console.log(imagem.classList)
+}
+
 
 function iniciaLista(){
     chrome.tabs.query({}, (tabs)=>{
@@ -42,9 +61,12 @@ function iniciaLista(){
             itemObj.textContent = itemName
             itemObj.appendChild(btnObj)
             
+            
             btnObj.classList.add('botaogeral')
-            btnObj.classList.add(`botao${i}`)
-            btnObj.onclick = atualizarVisibilidade(this)
+            btnObj.classList.add(`${i}`)
+            btnObj.appendChild(btnImg)
+            btnObj.addEventListener('click', atualizarVisibilidade)
+
             
             itemObj.classList.add('visivel')
             itemObj.classList.add(`itemdaLista`)
@@ -52,6 +74,7 @@ function iniciaLista(){
         }
     })
 }
+
 
 
 extensaobody.onload = ()=>{

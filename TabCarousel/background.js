@@ -4,7 +4,7 @@ let intervaloId = null
 let devagar = 10000
 let padrao = 5000
 let rapido = 2000
-let removedTabs
+let removedTabs = []
 
 function updateInterval(novoIntervalo){
     if(novoIntervalo >0){
@@ -37,8 +37,14 @@ function carossel(){
         chrome.tabs.query({active: true}, (tabrs)=>{
             console.log(tabrs[0].index)
             index = tabrs[0].index
+           if(removedTabs.includes(index+1))
+            {   
+                while(removedTabs.includes(index+1)){
+                    index = (index + 1) % tabs.length
+                }
+            }
             index = (index + 1) % tabs.length
-            chrome.tabs.reload(tab[index].id)
+            //chrome.tabs.reload(tabs[index].id)
             chrome.tabs.update(tabs[index].id, {active: true})
         })
     })
@@ -82,6 +88,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
         intervalo = request.message * 1000
         iniciaPara(intervalo)
         sendResponse('trocou')
+    }
+    else if(request.action === 'remove'){
+        removedTabs.push(request.message)
+        sendResponse(`guia numero ${request.message} removida`)
+    }
+    else if(request.action === 'restore'){
+        removedTabs.pop(request.message)
+        sendResponse(`guia de numero ${request.message} restaurada`)
     }
 
     return
