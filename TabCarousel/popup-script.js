@@ -44,6 +44,23 @@ function atualizarVisibilidade(){
     console.log(imagem.classList)
 }
 
+function atualizarReload(){
+    imagem = this.children.item(0)
+    if(imagem.classList.contains('reload')){
+        imagem.classList.add('notreload')
+        imagem.classList.remove('reload')
+        chrome.runtime.sendMessage({action: 'stopReload', message: this.classList[1]}, ()=>{
+            console.log(this.classList[1])
+        })
+    }
+    else{
+        imagem.classList.add('reload')
+        imagem.classList.remove('notreload')
+        chrome.runtime.sendMessage({action: 'startReload', message: this.classList[1]}, ()=>{
+            console.log(this.classList[1])
+        })
+    }
+}
 
 function iniciaLista(){
     chrome.tabs.query({}, (tabs)=>{
@@ -54,12 +71,18 @@ function iniciaLista(){
             itemObj = document.createElement('li')
             
             btnObj = document.createElement('BUTTON')
+
+            btn2Obj = document.createElement('BUTTON')
             
             btnImg = document.createElement('img')
             btnImg.classList.add('btnImgVis')
+
+            btn2Img = document.createElement('img')
+            btn2Img.classList.add('reload')
             
             itemObj.textContent = itemName
             itemObj.appendChild(btnObj)
+            itemObj.appendChild(btn2Obj)
             
             
             btnObj.classList.add('botaogeral')
@@ -67,7 +90,11 @@ function iniciaLista(){
             btnObj.appendChild(btnImg)
             btnObj.addEventListener('click', atualizarVisibilidade)
 
-            
+            btn2Obj.classList.add('botaogeral')
+            btn2Obj.classList.add(`${i}`)
+            btn2Obj.appendChild(btn2Img)
+            btn2Obj.addEventListener('click', atualizarReload)
+
             itemObj.classList.add('visivel')
             itemObj.classList.add(`itemdaLista`)
             listaDeGuias.appendChild(itemObj)
@@ -75,21 +102,30 @@ function iniciaLista(){
     })
 }
 
-
-
 extensaobody.onload = ()=>{
     chrome.runtime.sendMessage({action: 'getEstado'}, (response)=>{
         updateButton(response.estado)
         console.log(response.estado)
     })
     iniciaLista()
+    speedSelectPadrao.classList.add('selecionado')
+    speedSelectDevagar.classList.add('naoselecionado')
+    speedSelectRapido.classList.add('naoselecionado')
+    inputSetBtn.classList.add('naoselecionado')
 }
-
 
 inputSetBtn.addEventListener('click', ()=>{
     chrome.runtime.sendMessage({action: 'setVelocidadeCustom', message: input.value}, ()=>{
         console.log('Intervalo alterado para' + input.value + 'segundos')
     })
+    speedSelectRapido.classList.remove('selecionado')
+    speedSelectRapido.classList.add('naoselecionado')
+    speedSelectPadrao.classList.remove('selecionado')
+    speedSelectPadrao.classList.add('naoselecionado')
+    speedSelectDevagar.classList.remove('selecionado')
+    speedSelectDevagar.classList.add('naoselecionado')
+    inputSetBtn.classList.remove('naoselecionado')
+    inputSetBtn.classList.add('selecionado')   
 })
 
 botao.addEventListener('click', ()=>{
@@ -103,17 +139,45 @@ speedSelectDevagar.addEventListener('click', ()=>{
     chrome.runtime.sendMessage({action: 'setVelocidadeDevagar'}, ()=>{
         console.log('Intervalo alterado para devagar (10s)')
     })
+    inputSetBtn.classList.remove('selecionado')
+    inputSetBtn.classList.add('naoselecionado')
+    speedSelectRapido.classList.remove('selecionado')
+    speedSelectRapido.classList.add('naoselecionado')
+    speedSelectPadrao.classList.remove('selecionado')
+    speedSelectPadrao.classList.add('naoselecionado')
+    speedSelectDevagar.classList.add('selecionado')
+    speedSelectDevagar.classList.remove('naoselecionado')
+    
+
 })
 
 speedSelectPadrao.addEventListener('click', ()=>{
     chrome.runtime.sendMessage({action: 'setVelocidadePadrao'}, ()=>{
         console.log('Intervalo alterado para Padrao (5s)')
     })
+    inputSetBtn.classList.remove('selecionado')
+    inputSetBtn.classList.add('naoselecionado')
+    speedSelectRapido.classList.remove('selecionado')
+    speedSelectRapido.classList.add('naoselecionado')
+    speedSelectDevagar.classList.remove('selecionado')
+    speedSelectDevagar.classList.add('naoselecionado')
+    speedSelectPadrao.classList.add('selecionado')
+    speedSelectPadrao.classList.remove('naoselecionado')
+    
+
 })
 
 speedSelectRapido.addEventListener('click', ()=>{
     chrome.runtime.sendMessage({action: 'setVelocidadeRapida'}, ()=>{
         console.log('Intervalo alterado para Padrao (2s)')
     })
+    inputSetBtn.classList.remove('selecionado')
+    inputSetBtn.classList.add('naoselecionado')
+    speedSelectDevagar.classList.remove('selecionado')
+    speedSelectDevagar.classList.add('naoselecionado')
+    speedSelectPadrao.classList.remove('selecionado')
+    speedSelectPadrao.classList.add('naoselecionado')
+    speedSelectRapido.classList.add('selecionado')
+    speedSelectRapido.classList.remove('naoselecionado')
 })
 

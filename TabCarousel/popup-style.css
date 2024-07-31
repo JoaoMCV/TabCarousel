@@ -1,37 +1,62 @@
 body{
     height: 500px;
     width: 300px;
+    background-color: #221b1b;
 }
 .toggle{
     font-size: 24px;
     border-radius: 10px;
+    height: 15%;
+    width: 100%
 }
 .desligado{
-    background-color: rgb(136,212,202);
+    background-color: #89E34F;
 }
 .ligado{
+    background-color: #cc3535;
+}
+.naoselecionado{
     color: white;
-    background-color: rgb(208,44,129);
+    background-color: #585858;
+    border: 5px;
+    border-radius: 25px;
+    border-color: #585858;
+    box-shadow: none;
+}
+.selecionado{
+    background-color: white;
+    border-radius: 25px;
+    border: 5px;
+    border-color: white;
+    color: black;
+}
+#custom{
+    color: white;
+    border-radius: 5px;
+}
+.customtime{
+    color: white;
 }
 #listaDeGuias{
+    float: left;
     list-style-type: none;
-    align-self:flex-start;
-
-}
-.speedselector button{
-    border-radius: 25px;
+    list-style-position: initial;
+    margin-left: 0px;
+    padding-left: 0px;
 }
 .itemdaLista{
+    float: left;
     font-size: medium;
-    color: rgb(179,205,224);
-    background-color:royalblue;
+    color: #bebebe;
+    background-color:#3b3a39;
     border-radius: 10px;
     border-width: 5px;
     border-style: solid;
-    border-color: royalblue;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    border-color: #3b3a39;
+    margin-top: 5px;
+    margin-bottom: 5px;
     margin-left: 0px;
+    padding-left: 0px;
 }
 .botaogeral{
     margin-right: 0px;
@@ -41,6 +66,7 @@ body{
     background: none;
     appearance: none;
     border-radius: 5px;
+    filter: invert(100%);
 
 }
 .botao0{
@@ -55,6 +81,16 @@ body{
     height: 20px;
     width: 20px;
     content: url(./notvisible.png); 
+}
+.reload{
+    height: 20px;
+    width: 20px;
+    content: url(./atualizar.png)
+}
+.notreload{
+    height: 20px;
+    width: 20px;
+    content: url(./nao_atualizar.png)
 }
 ul #listaDeGuias li{
     margin-top: 10px;

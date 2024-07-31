@@ -5,6 +5,7 @@ let devagar = 10000
 let padrao = 5000
 let rapido = 2000
 let removedTabs = []
+let notReloadTabs = []
 
 function updateInterval(novoIntervalo){
     if(novoIntervalo >0){
@@ -44,8 +45,11 @@ function carossel(){
                 }
             }
             index = (index + 1) % tabs.length
-            chrome.tabs.reload(tabs[(index - 1)%tabs.length].id)
             chrome.tabs.update(tabs[index].id, {active: true})
+            if(!notReloadTabs.includes(index - 1)){
+                chrome.tabs.reload(tabs[(index - 1)%tabs.length].id)
+            }
+            
         })
     })
     
@@ -96,6 +100,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
     else if(request.action === 'restore'){
         removedTabs.pop(request.message)
         sendResponse(`guia de numero ${request.message} restaurada`)
+    }
+    else if(request.action === 'stopReload'){
+        notReloadTabs.push(request.message)
+        sendResponse(`guia de numero ${request.message} nao sera recarregada`)
+    }
+    else if(request.action === 'startReload'){
+        notReloadTabs.pop(request.message)
+        sendResponse(`guia de numero ${request.message} sera recarregada`)
     }
 
     return
