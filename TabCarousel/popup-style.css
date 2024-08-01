@@ -31,11 +31,7 @@ body{
     color: black;
 }
 #custom{
-    color: white;
     border-radius: 5px;
-}
-.customtime{
-    color: white;
 }
 #listaDeGuias{
     float: left;
@@ -53,6 +49,7 @@ body{
     border-width: 5px;
     border-style: solid;
     border-color: #3b3a39;
+    width: 95%;
     margin-top: 5px;
     margin-bottom: 5px;
     margin-left: 0px;

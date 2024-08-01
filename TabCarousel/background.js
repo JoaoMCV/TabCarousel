@@ -47,7 +47,12 @@ function carossel(){
             index = (index + 1) % tabs.length
             chrome.tabs.update(tabs[index].id, {active: true})
             if(!notReloadTabs.includes(index - 1)){
-                chrome.tabs.reload(tabs[(index - 1)%tabs.length].id)
+                if(index !=0){
+                    chrome.tabs.reload(tabs[(index - 1)%tabs.length].id)
+                }
+                else{
+                    chrome.tabs.reload(tabs[tabs.length - 1].id)
+                }
             }
             
         })

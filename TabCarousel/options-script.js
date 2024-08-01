@@ -1,5 +1,6 @@
 optionsbody = document.getElementById('optionsbody')
 listaguias = document.getElementById('listaguiasopcoes')
+let intervaloAtual
 function updateButton(estadoAtual){
     
     if(estadoAtual){
@@ -56,46 +57,51 @@ function atualizarReload(){
 
 function iniciaListaopcoes(){
     chrome.tabs.query({}, (tabs)=>{
-        for(let i = 0; i< tabs.length;i++){
-            
-            itemName = tabs[i].title
-            
-            itemObj = document.createElement('li')
-            
-            btnObj = document.createElement('BUTTON')
-
-            btn2Obj = document.createElement('BUTTON')
-
-            inputObj = document.createElement('input')
-            inputObj.classList.add('numberinput')
-            inputObj.classList.add(`input${i}`)
-            
-            btnImg = document.createElement('img')
-            btnImg.classList.add('btnImgVis')
-
-            btn2Img = document.createElement('img')
-            btn2Img.classList.add('reload')
-            
-            itemObj.textContent = itemName
-            itemObj.appendChild(inputObj)
-            itemObj.appendChild(btnObj)
-            itemObj.appendChild(btn2Obj)
-            
-            
-            btnObj.classList.add('botaogeral')
-            btnObj.classList.add(`${i}`)
-            btnObj.appendChild(btnImg)
-            btnObj.addEventListener('click', atualizarVisibilidade)
-
-            btn2Obj.classList.add('botaogeral')
-            btn2Obj.classList.add(`${i}`)
-            btn2Obj.appendChild(btn2Img)
-            btn2Obj.addEventListener('click', atualizarReload)
-
-            itemObj.classList.add('visivel')
-            itemObj.classList.add(`itemdaLista`)
-            listaguias.appendChild(itemObj)
-        }
+        chrome.runtime.sendMessage({action:'getIntervalo'}, (response)=>{
+            intervaloAtual = response.intervalo
+            console.log(response.intervalo)
+        
+            for(let i = 0; i< tabs.length;i++){
+                itemObj = document.createElement('li')
+        
+                btnObj = document.createElement('BUTTON')
+                
+                btn2Obj = document.createElement('BUTTON')
+                
+                inputObj = document.createElement('input')
+                inputObj.classList.add('numberinput')
+                inputObj.classList.add(`${i}`)
+                
+                
+                btnImg = document.createElement('img')
+                btnImg.classList.add('btnImgVis')
+                
+                btn2Img = document.createElement('img')
+                btn2Img.classList.add('reload')
+                
+                itemObj.textContent = tabs[i].title
+                itemObj.appendChild(document.createElement('br'))
+                itemObj.appendChild(inputObj)
+                itemObj.appendChild(btnObj)
+                itemObj.appendChild(btn2Obj)
+                
+                
+                btnObj.classList.add('botaogeral')
+                btnObj.classList.add(`${i}`)
+                btnObj.appendChild(btnImg)
+                btnObj.addEventListener('click', atualizarVisibilidade)
+                
+                btn2Obj.classList.add('botaogeral')
+                btn2Obj.classList.add(`${i}`)
+                btn2Obj.appendChild(btn2Img)
+                btn2Obj.addEventListener('click', atualizarReload)
+                
+                itemObj.classList.add('visivel')
+                itemObj.classList.add(`itemdaLista`)
+                itemObj.setAttribute('data-intervalo', `${intervaloAtual}`)
+                listaguias.appendChild(itemObj)
+            }
+        })
     })
 }
 

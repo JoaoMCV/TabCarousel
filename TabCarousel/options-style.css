@@ -7,6 +7,7 @@ body{
     float: left;
     list-style-type: none;
     list-style-position: initial;
+    width: 100%;
     margin-left: 0px;
     padding-left: 0px;
 }
@@ -19,10 +20,12 @@ body{
     border-width: 5px;
     border-style: solid;
     border-color: #3b3a39;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 0px;
-    padding-left: 0px;
+    width: 95%;
+    max-width: 95%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    margin:5px 0px 5px 0px;
 }
 .botaogeral{
     margin-right: 0px;
