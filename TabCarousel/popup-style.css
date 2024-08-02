@@ -9,6 +9,9 @@ body{
     height: 15%;
     width: 100%
 }
+.toggle:active{
+    filter:brightness(50%);
+}
 .desligado{
     background-color: #89E34F;
 }
@@ -66,8 +69,8 @@ body{
     filter: invert(100%);
 
 }
-.botao0{
-    font-size: 12;
+.speedselector button:active{
+    filter: brightness(50%);
 }
 .btnImgVis{
     height: 20px;
@@ -92,4 +95,7 @@ body{
 ul #listaDeGuias li{
     margin-top: 10px;
     margin-bottom: 10px;
+}
+.botaogeral:active{
+    filter: invert(50%);
 }

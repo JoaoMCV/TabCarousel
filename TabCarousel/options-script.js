@@ -55,22 +55,40 @@ function atualizarReload(){
     }
 }
 
+function alteraIntervalo(){
+    minuts = this.parentElement.children.item(1)
+    console.log()
+    seconds = this.parentElement.children.item(2)
+    chrome.runtime.sendMessage({action:'setIntervalos', index: this.classList[1], intervalo: ((parseInt(minuts.value) * 60) + parseInt(seconds.value))*1000})
+    
+}
+
 function iniciaListaopcoes(){
     chrome.tabs.query({}, (tabs)=>{
         chrome.runtime.sendMessage({action:'getIntervalo'}, (response)=>{
             intervaloAtual = response.intervalo
-            console.log(response.intervalo)
+            console.log(intervaloAtual)
         
             for(let i = 0; i< tabs.length;i++){
+                chrome.runtime.sendMessage({action: 'setIntervalo', message:intervaloAtual})
+
                 itemObj = document.createElement('li')
         
                 btnObj = document.createElement('BUTTON')
                 
                 btn2Obj = document.createElement('BUTTON')
+
+                btnSetObj = document.createElement('BUTTON')
                 
                 inputObj = document.createElement('input')
+                inputObj.setAttribute('placeholder','segundos')
                 inputObj.classList.add('numberinput')
                 inputObj.classList.add(`${i}`)
+
+                inputMinObj = document.createElement('input')
+                inputMinObj.setAttribute('placeholder', 'minutos')
+                inputMinObj.classList.add('numberinput')
+                inputMinObj.classList.add(`${i}`)
                 
                 
                 btnImg = document.createElement('img')
@@ -78,13 +96,22 @@ function iniciaListaopcoes(){
                 
                 btn2Img = document.createElement('img')
                 btn2Img.classList.add('reload')
+
+                btnSetImg = document.createElement('img')
+                btnSetImg.classList.add('set')
                 
                 itemObj.textContent = tabs[i].title
                 itemObj.appendChild(document.createElement('br'))
+                itemObj.appendChild(inputMinObj)
                 itemObj.appendChild(inputObj)
                 itemObj.appendChild(btnObj)
                 itemObj.appendChild(btn2Obj)
+                itemObj.appendChild(btnSetObj)
                 
+                btnSetObj.classList.add('botaogeral')
+                btnSetObj.classList.add(`${i}`)
+                btnSetObj.appendChild(btnSetImg)
+                btnSetObj.addEventListener('click', alteraIntervalo)
                 
                 btnObj.classList.add('botaogeral')
                 btnObj.classList.add(`${i}`)
@@ -95,10 +122,12 @@ function iniciaListaopcoes(){
                 btn2Obj.classList.add(`${i}`)
                 btn2Obj.appendChild(btn2Img)
                 btn2Obj.addEventListener('click', atualizarReload)
+
+
                 
                 itemObj.classList.add('visivel')
                 itemObj.classList.add(`itemdaLista`)
-                itemObj.setAttribute('data-intervalo', `${intervaloAtual}`)
+
                 listaguias.appendChild(itemObj)
             }
         })

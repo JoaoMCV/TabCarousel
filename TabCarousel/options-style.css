@@ -36,7 +36,10 @@ body{
     appearance: none;
     border-radius: 5px;
     filter: invert(100%);
-
+}
+.botaoset{
+    background: none;
+    float: right;
 }
 .btnImgVis{
     height: 20px;
@@ -57,4 +60,16 @@ body{
     height: 20px;
     width: 20px;
     content: url(./nao_atualizar.png)
+}
+.set{
+    height: 20px;
+    width: 20px;
+    content: url(./set.png);
+}
+.numberinput{
+    max-width: 10ch;
+    margin-right: 1ch;
+}
+.botaogeral:active{
+    filter: invert(50%);
 }

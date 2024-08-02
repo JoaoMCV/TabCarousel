@@ -6,6 +6,7 @@ let padrao = 5000
 let rapido = 2000
 let removedTabs = []
 let notReloadTabs = []
+let intervalos = {}
 
 function updateInterval(novoIntervalo){
     if(novoIntervalo >0){
@@ -28,6 +29,14 @@ function iniciaPara(novoIntervalo){
     console.log('troca de intervalo')
     if(estado){
         intervaloId = setInterval(carossel, intervalo)
+    }
+}
+
+function intervaloDiff(intervalodif){
+    clearInterval(intervaloId)
+    console.log('intervalo especial')
+    if(estado){
+        intervaloID = setInterval(carossel,intervalodif)
     }
 }
 
@@ -113,6 +122,19 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
     else if(request.action === 'startReload'){
         notReloadTabs.pop(request.message)
         sendResponse(`guia de numero ${request.message} sera recarregada`)
+    }
+    else if(request.action === 'getIntervalos'){
+        sendResponse(intervalos)
+    }
+    else if(request.action === 'setIntervalos'){
+        if(request.intervalo != null){
+            intervalos[request.index] = request.intervalo
+            sendResponse('intervalo definido')
+        }
+        else{
+            sendResponse('intervalo inválido')
+        }
+        console.log(intervalos)
     }
 
     return
