@@ -64,7 +64,12 @@ function atualizarReload(){
 
 function iniciaLista(){
     chrome.tabs.query({}, (tabs)=>{
+
         for(let i = 0; i< tabs.length;i++){
+            
+            fs.appendFile('myfile.json',tabs[i], (err)=>{
+                if(err) throw err
+            })
             
             itemName = tabs[i].title
             
@@ -74,11 +79,33 @@ function iniciaLista(){
 
             btn2Obj = document.createElement('BUTTON')
             
-            btnImg = document.createElement('img')
-            btnImg.classList.add('btnImgVis')
+            let btnImg = document.createElement('img')
+            
+            chrome.runtime.sendMessage({action: 'getVisibilidade'}, (response)=>{
+                invisibletabs = response.removedTabs
+                if(invisibletabs.includes(i)){
+                    console.log(i)
+                    btnImg.classList.remove('btnImgVis')
+                    btnImg.classList.add('btnImgnotVis')
+                }
+                else{
+                    btnImg.classList.remove('btnImgnotVis')
+                    btnImg.classList.add('btnImgVis')
+                }
+            })
 
-            btn2Img = document.createElement('img')
-            btn2Img.classList.add('reload')
+            let btn2Img = document.createElement('img')
+            chrome.runtime.sendMessage({action: 'getReload'}, (response)=>{
+                notreload = response.notReloadTabs
+                if(notreload.includes(i)){
+                    btn2Img.classList.remove('reload')
+                    btn2Img.classList.add('notreload')
+                }
+                else{
+                    btn2Img.classList.remove('notreload')
+                    btn2Img.classList.add('reload')
+                }
+            })            
             
             itemObj.textContent = itemName
             itemObj.appendChild(btnObj)

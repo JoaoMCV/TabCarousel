@@ -59,6 +59,11 @@ function alteraIntervalo(){
     minuts = this.parentElement.children.item(1)
     console.log()
     seconds = this.parentElement.children.item(2)
+    if(minuts == undefined && seconds == undefined){
+        return
+    }
+    minuts == undefined ? minuts = 0: 
+    seconds == undefined ? seconds = 0:
     chrome.runtime.sendMessage({action:'setIntervalos', index: this.classList[1], intervalo: ((parseInt(minuts.value) * 60) + parseInt(seconds.value))*1000})
     
 }

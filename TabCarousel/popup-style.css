@@ -99,3 +99,6 @@ ul #listaDeGuias li{
 .botaogeral:active{
     filter: invert(50%);
 }
+.customtime{
+    color: white;
+}

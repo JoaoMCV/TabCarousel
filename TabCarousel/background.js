@@ -24,11 +24,11 @@ function inverteEstado(){
 }
 
 function iniciaPara(novoIntervalo){
-    intervalo= novoIntervalo
     clearInterval(intervaloId)
+    console.log(novoIntervalo)
     console.log('troca de intervalo')
     if(estado){
-        intervaloId = setInterval(carossel, intervalo)
+        intervaloId = setInterval(carossel, novoIntervalo)
     }
 }
 
@@ -47,6 +47,15 @@ function carossel(){
         chrome.tabs.query({active: true}, (tabrs)=>{
             console.log(tabrs[0].index)
             index = tabrs[0].index
+            console.log(intervalos[(index+1)%tabs.length])
+            if(intervalos[(index+1)%tabs.length] !== undefined){
+                console.log(intervalos[(index+1)%tabs.length])
+                iniciaPara(intervalos[(index+1)%tabs.length])
+                console.log(intervalos[(index+1)%tabs.length])
+            }
+            else{
+                iniciaPara(intervalo)
+            }
            if(removedTabs.includes(index+1))
             {   
                 while(removedTabs.includes(index+1)){
@@ -55,19 +64,15 @@ function carossel(){
             }
             index = (index + 1) % tabs.length
             chrome.tabs.update(tabs[index].id, {active: true})
-            if(!notReloadTabs.includes(index - 1)){
-                if(index !=0){
-                    chrome.tabs.reload(tabs[(index - 1)%tabs.length].id)
-                }
-                else{
-                    chrome.tabs.reload(tabs[tabs.length - 1].id)
-                }
+            if(!notReloadTabs.includes((((index-1)% tabs.length)+tabs.length)%tabs.length)){
+                chrome.tabs.reload(tabs[(((index-1)% tabs.length)+tabs.length)%tabs.length].id)
             }
-            
         })
     })
     
 }
+
+
 
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
@@ -108,19 +113,21 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
         sendResponse('trocou')
     }
     else if(request.action === 'remove'){
-        removedTabs.push(request.message)
+        removedTabs.push(parseInt(request.message))
         sendResponse(`guia numero ${request.message} removida`)
+        console.log(removedTabs)
     }
     else if(request.action === 'restore'){
-        removedTabs.pop(request.message)
+        removedTabs.pop(parseInt(request.message))
         sendResponse(`guia de numero ${request.message} restaurada`)
+        console.log(removedTabs)
     }
     else if(request.action === 'stopReload'){
-        notReloadTabs.push(request.message)
+        notReloadTabs.push(parseInt(request.message))
         sendResponse(`guia de numero ${request.message} nao sera recarregada`)
     }
     else if(request.action === 'startReload'){
-        notReloadTabs.pop(request.message)
+        notReloadTabs.pop(parseInt(request.message))
         sendResponse(`guia de numero ${request.message} sera recarregada`)
     }
     else if(request.action === 'getIntervalos'){
@@ -134,7 +141,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
         else{
             sendResponse('intervalo inválido')
         }
+        teste = request.index
         console.log(intervalos)
+        console.log(intervalos[request.index])
+    }
+    else if(request.action === 'getVisibilidade'){
+        sendResponse({removedTabs})
+    }
+    else if(request.action === 'getReload'){
+        sendResponse({notReloadTabs})
     }
 
     return
