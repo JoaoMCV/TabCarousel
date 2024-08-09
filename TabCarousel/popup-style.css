@@ -26,6 +26,20 @@ body{
     border-color: #585858;
     box-shadow: none;
 }
+.botaoopcoes{
+    font-size: large;
+    color: white;
+    background-color: #585858;
+    border: 5px;
+    border-radius: 25px;
+    padding: 7px;
+    border-color: #585858;
+    box-shadow: none;
+    text-decoration: none;
+}
+.botaoopcoes:active{
+    filter:brightness(50%);
+}
 .selecionado{
     background-color: white;
     border-radius: 25px;

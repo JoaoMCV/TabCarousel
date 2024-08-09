@@ -27,6 +27,20 @@ body{
     white-space: nowrap;
     margin:5px 0px 5px 0px;
 }
+.botaovoltar{
+    font-size: large;
+    color: white;
+    background-color: #585858;
+    border: 5px;
+    border-radius: 25px;
+    padding: 7px;
+    border-color: #585858;
+    box-shadow: none;
+    text-decoration: none;
+}
+.botaovoltar:active{
+    filter:brightness(50%);
+}
 .botaogeral{
     margin-right: 0px;
     float: right;

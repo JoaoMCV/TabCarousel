@@ -67,10 +67,6 @@ function iniciaLista(){
 
         for(let i = 0; i< tabs.length;i++){
             
-            fs.appendFile('myfile.json',tabs[i], (err)=>{
-                if(err) throw err
-            })
-            
             itemName = tabs[i].title
             
             itemObj = document.createElement('li')
