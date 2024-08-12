@@ -57,14 +57,15 @@ function atualizarReload(){
 
 function alteraIntervalo(){
     minuts = this.parentElement.children.item(1)
-    console.log()
+    console.log(this.classList.item(1))
     seconds = this.parentElement.children.item(2)
     if(minuts == undefined && seconds == undefined){
         return
     }
-    minuts == undefined ? minuts = 0: 
-    seconds == undefined ? seconds = 0:
-    chrome.runtime.sendMessage({action:'setIntervalos', index: this.classList[1], intervalo: ((parseInt(minuts.value) * 60) + parseInt(seconds.value))*1000})
+    minuts.value = minuts.value ? minuts.value : 0 
+    seconds.value = seconds.value ? seconds.value : 0
+    console.log([parseInt(minuts.value), parseInt(seconds.value)])
+    chrome.runtime.sendMessage({action:'setIntervalos', index: this.classList.item(1), intervalo: ((parseInt(minuts.value) * 60) + parseInt(seconds.value))*1000})
     
 }
 
@@ -85,16 +86,29 @@ function iniciaListaopcoes(){
 
                 btnSetObj = document.createElement('BUTTON')
                 
-                inputObj = document.createElement('input')
-                inputObj.setAttribute('placeholder','segundos')
+                let inputObj = document.createElement('input')
                 inputObj.classList.add('numberinput')
                 inputObj.classList.add(`${i}`)
-
-                inputMinObj = document.createElement('input')
-                inputMinObj.setAttribute('placeholder', 'minutos')
+                
+                let inputMinObj = document.createElement('input')
                 inputMinObj.classList.add('numberinput')
                 inputMinObj.classList.add(`${i}`)
                 
+                chrome.runtime.sendMessage({action: 'getIntervalom', message: i},(response)=>{
+                    console.log(`${response.minutos} minutos ${response.segundos} segundos`)
+                    if(response.minutos > 0){
+                        inputMinObj.setAttribute('placeholder', `${response.minutos} minutos`)
+                    }
+                    else{
+                        inputMinObj.setAttribute('placeholder', `minutos`)
+                    }
+                    if(response.segundos > 0){
+                        inputObj.setAttribute('placeholder', `${response.segundos} segundos`)
+                    }
+                    else{
+                        inputObj.setAttribute('placeholder', `segundos`)
+                    }
+                })
                 
                 btnImg = document.createElement('img')
                 btnImg.classList.add('btnImgVis')

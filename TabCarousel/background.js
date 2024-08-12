@@ -72,7 +72,17 @@ function carossel(){
     
 }
 
-
+function transformaintervalo(index){
+    minutos = 0
+    segundos = 0
+    if(intervalos[index] !== undefined){
+        intervalocerto = intervalos[index] / 1000
+        minutos = parseInt(intervalocerto/60)
+        segundos = parseInt(intervalocerto%60)
+    }
+    console.log([minutos,segundos])
+    return [minutos,segundos]
+}
 
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
@@ -133,6 +143,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
     else if(request.action === 'getIntervalos'){
         sendResponse(intervalos)
     }
+    else if(request.action === 'getIntervalom'){
+        intervalo = transformaintervalo(request.message)
+        minutos = intervalo[0]
+        segundos = intervalo[1]
+        sendResponse({minutos: minutos, segundos: segundos})
+    }
     else if(request.action === 'setIntervalos'){
         if(request.intervalo != null){
             intervalos[request.index] = request.intervalo
@@ -141,7 +157,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
         else{
             sendResponse('intervalo inválido')
         }
-        teste = request.index
+        console.log(request.index)
         console.log(intervalos)
         console.log(intervalos[request.index])
     }
