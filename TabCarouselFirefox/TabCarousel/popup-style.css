@@ -1,0 +1,118 @@
+body{
+    height: 500px;
+    width: 300px;
+    background-color: #221b1b;
+}
+.toggle{
+    font-size: 24px;
+    border-radius: 10px;
+    height: 15%;
+    width: 100%
+}
+.toggle:active{
+    filter:brightness(50%);
+}
+.desligado{
+    background-color: #89E34F;
+}
+.ligado{
+    background-color: #cc3535;
+}
+.naoselecionado{
+    color: white;
+    background-color: #585858;
+    border: 5px;
+    border-radius: 25px;
+    border-color: #585858;
+    box-shadow: none;
+}
+.botaoopcoes{
+    font-size: large;
+    color: white;
+    background-color: #585858;
+    border: 5px;
+    border-radius: 25px;
+    padding: 7px;
+    border-color: #585858;
+    box-shadow: none;
+    text-decoration: none;
+}
+.botaoopcoes:active{
+    filter:brightness(50%);
+}
+.selecionado{
+    background-color: white;
+    border-radius: 25px;
+    border: 5px;
+    border-color: white;
+    color: black;
+}
+#custom{
+    border-radius: 5px;
+}
+#listaDeGuias{
+    float: left;
+    list-style-type: none;
+    list-style-position: initial;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+.itemdaLista{
+    float: left;
+    font-size: medium;
+    color: #bebebe;
+    background-color:#3b3a39;
+    border-radius: 10px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #3b3a39;
+    width: 95%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+.botaogeral{
+    margin-right: 0px;
+    float: right;
+    border: none;
+    cursor: pointer;
+    background: none;
+    appearance: none;
+    border-radius: 5px;
+    filter: invert(100%);
+
+}
+.speedselector button:active{
+    filter: brightness(50%);
+}
+.btnImgVis{
+    height: 20px;
+    width: 20px;
+    content: url(./visible.png);
+}
+.btnImgnotVis{
+    height: 20px;
+    width: 20px;
+    content: url(./notvisible.png); 
+}
+.reload{
+    height: 20px;
+    width: 20px;
+    content: url(./atualizar.png)
+}
+.notreload{
+    height: 20px;
+    width: 20px;
+    content: url(./nao_atualizar.png)
+}
+ul #listaDeGuias li{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.botaogeral:active{
+    filter: invert(50%);
+}
+.customtime{
+    color: white;
+}
