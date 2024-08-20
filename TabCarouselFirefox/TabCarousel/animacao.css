@@ -1,0 +1,60 @@
+#animacaoDiv{
+	overflow: hidden;
+    position:fixed;
+    width:100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+}
+#animacaoDiv div{
+    width: 12.5%;
+    float: left;
+    height: 100%;
+    z-index: inherit;
+    animation-name: animacaoColuna;
+    animation-duration: 5s;
+    animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+}
+
+@keyframes animacaoColuna{
+    from {height: 100%;}
+    to {height:0%;}
+}
+
+
+#animacaoDiv div:nth-child(1){
+    background-color: #01EBCF ;
+    animation-delay: 0;
+}
+#animacaoDiv div:nth-child(2){
+    background-color: #4BDBFD ;
+    animation-delay: 100ms;
+}
+#animacaoDiv div:nth-child(3){
+    background-color: #7358C8 ;
+    animation-delay: 200ms;
+}
+#animacaoDiv div:nth-child(4){
+    background-color: #7EFFE9 ;
+    animation-delay: 300ms;
+}
+#animacaoDiv div:nth-child(5){
+    background-color: #BCB3FF ;
+    animation-delay: 400ms;
+}
+#animacaoDiv div:nth-child(6){
+    background-color: #FA796D ;
+    animation-delay: 500ms;
+}
+#animacaoDiv div:nth-child(7){
+    background-color: #FFB6A8 ;
+    animation-delay: 600ms;
+}
+#animacaoDiv div:nth-child(8){
+    background-color: #FFEC86 ;
+    animation-delay: 700ms;
+}

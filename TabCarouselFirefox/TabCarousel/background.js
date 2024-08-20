@@ -36,18 +36,30 @@ function intervaloDiff(intervalodif){
     clearInterval(intervaloId)
     console.log('intervalo especial')
     if(estado){
-        intervaloID = setInterval(carossel,intervalodif)
+        intervaloId = setInterval(carossel,intervalodif)
     }
 }
+
+
 
 function carossel(){
     if(!estado) return
     browser.tabs.query({}, (tabs)=>{
         if(tabs.length === 0) return
-        browser.tabs.query({active: true}, (tabrs)=>{
+        browser.tabs.query({active: true}, async (tabrs)=>{
             console.log(tabrs[0].index)
             index = tabrs[0].index
             console.log(intervalos[(index+1)%tabs.length])
+            if(intervaloId != null){
+                clearInterval(intervaloId)
+            }
+            aleatorio = parseInt(Math.random() * 2) 
+            browser.tabs.create({
+                active : true,
+                url : `./chamadas/chamada${aleatorio}.html`
+            })
+            await new Promise(res => setTimeout(res, 15000))
+            //adiciona transição
             if(intervalos[(index+1)%tabs.length] !== undefined){
                 console.log(intervalos[(index+1)%tabs.length])
                 iniciaPara(intervalos[(index+1)%tabs.length])
@@ -63,12 +75,18 @@ function carossel(){
                 }
             }
             index = (index + 1) % tabs.length
+
             browser.tabs.update(tabs[index].id, {active: true})
+            browser.tabs.executeScript({file: "./scripttransicao.js"})
             if(!notReloadTabs.includes((((index-1)% tabs.length)+tabs.length)%tabs.length)){
                 browser.tabs.reload(tabs[(((index-1)% tabs.length)+tabs.length)%tabs.length].id)
             }
+            browser.tabs.query({}, (tabs)=>{
+                browser.tabs.remove(tabs[tabs.length-1].id)
+            })
         })
     })
+
     
 }
 
@@ -166,6 +184,9 @@ browser.runtime.onMessage.addListener((request, sender, sendResponse)=>{
     }
     else if(request.action === 'getReload'){
         sendResponse({notReloadTabs})
+    }
+    else if(request.action === 'teste'){
+        console.log("teste")
     }
 
     return
